@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import requests
 
 app = Flask(__name__)
 
@@ -41,6 +42,17 @@ def show_home_page():
 @app.route('/users/hello')
 def hello():
     return "Hello, Users!"
+
+@app.route('/GraphQL', methods=['POST'])
+def GraphQL_query():
+    query = request.get_json().get("query")
+    graphQL_url = "https://smapi.pv-api.sbc.space/ds-7429590172239724545/graphql"
+    response = requests.post(graphQL_url, json={'query': query})
+
+    if response.ok:
+        return jsonify(response.json())
+    else:
+        return jsonify({"Ошибка": "Произошла ошибка связнная с GraphQL запросом"}), response.status_code
 
 if __name__ == '__main__':
     app.run(debug=True)
