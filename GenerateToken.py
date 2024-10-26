@@ -17,7 +17,7 @@ def get_token(auth_token, scope='GIGACHAT_API_PERS'):
     rq_uid = str(uuid.uuid4())
 
     # API URL
-    url = "https://gigachat.devices.sberbank.ru/"
+    url = "https://ngw.devices.sberbank.ru:9443/api/v2/oauth"
 
     # Заголовки
     headers = {
@@ -35,9 +35,8 @@ def get_token(auth_token, scope='GIGACHAT_API_PERS'):
     try:
         # Делаем POST запрос с отключенной SSL верификацией
         # (можно скачать сертификаты Минцифры, тогда отключать проверку не надо)
-        #response = requests.post(url, headers=headers, data=payload, verify=False)
-        second_response = requests.get(url, headers=headers,  data=payload, verify=False)
-        return second_response
+        response = requests.post(url, headers=headers, data=payload, verify=False)
+        return response
     except requests.RequestException as e:
         print(f"Ошибка: {str(e)}")
         return -1
