@@ -1,5 +1,6 @@
 from IPython.display import Image, display
 import traceback
+
 try:
     display(Image(app.get_graph(xray=True).draw_mermaid_png()))
 except Exception as ex:

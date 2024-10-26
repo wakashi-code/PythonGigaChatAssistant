@@ -19,5 +19,4 @@ def find_doctors(state):
     return {"question": question, "context": response}
 
     #
-
 # Print the response

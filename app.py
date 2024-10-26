@@ -34,11 +34,13 @@ def delete_user(user_id):
     data["users"].remove(user)
     return "User deleted", 204
 
-@app.route('/users/')
+@app.route('/home')
+def show_home_page():
+    return "Home page"
 
 @app.route('/users/hello')
 def hello():
-    return "Hello, World!"
+    return "Hello, Users!"
 
 if __name__ == '__main__':
     app.run(debug=True)

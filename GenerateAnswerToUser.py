@@ -1,7 +1,11 @@
 ### Generate
 
 from langchain import hub
+from langchain.chat_models.gigachat import GigaChat
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+
+import tesxt
 
 # Prompt
 system = """
@@ -17,9 +21,9 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 giga = GigaChat(
-#    model="GigaChat-Pro",
-#    credentials=creds,
-#    scope="GIGACHAT_API_CORP",  # "GIGACHAT_API_PERS",
+    model=tesxt.GIGACHAT_MODEL,
+    credentials=tesxt.GIGACHAT_CREDENTIALS,
+    scope=tesxt.GIGACHAT_SCOPE,
     verify_ssl_certs=False,
 
     temperature=0.1
