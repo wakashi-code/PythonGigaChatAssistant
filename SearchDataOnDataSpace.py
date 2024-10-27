@@ -18,5 +18,48 @@ def find_doctors(state):
     print(response)
     return {"question": question, "context": response}
 
-    #
+def find_clinics(state):
+    question = state["question"]
+
+    graphql_search_clinics = {
+        "operationName": "searchClinic",
+        "variables": {},
+        "query": "query { searchClinic { elems { name } } }"
+    }
+
+    requests_tool = TextRequestsWrapper()
+
+    response = requests_tool.post(url="https://smapi.pv-api.sbc.space/ds-7429590172239724545/graphql",
+                                  data=graphql_search_clinics)
+    print(response)
+    return {"question": question, "context": response}
+
+def find_free_date_info(state):
+    question = state["question"]
+
+    graphql_search_free_date = {
+        "operationName": "searchClinicDoctorAvailability",
+        "variables": {},
+        "query": "query { searchClinicDoctorAvailability { elems { clinicOffice { clinic { name } }, clinicDoctor { doctor { entity { person { entity { id, firstName, lastName, birthDate } } } } } } } }"
+    }
+
+    requests_tool = TextRequestsWrapper()
+
+    response = requests_tool.post(url="https://smapi.pv-api.sbc.space/ds-7429590172239724545/graphql",
+                                  data=graphql_search_free_date)
+    print(response)
+    return {"question": question, "context": response}
+
+def appointment(state):
+    question = state["question"]
+    ###
+
+    ###
+    requests_tool = TextRequestsWrapper()
+
+    response = requests_tool.post(url="https://smapi.pv-api.sbc.space/ds-7429590172239724545/graphql",
+                                  data="")
+    print(response)
+    return {"question": question, "context": response}
+
 # Print the response

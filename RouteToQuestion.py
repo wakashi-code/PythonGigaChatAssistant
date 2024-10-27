@@ -1,7 +1,9 @@
 from langchain_core.prompts import ChatPromptTemplate
 from typing import Literal
 from pydantic import BaseModel, Field
-from langchain_community.chat_models import GigaChat
+from langchain_community.chat_models.gigachat import GigaChat
+import SetGigaChatVariables
+
 
 
 class RouteQuery(BaseModel):
@@ -14,7 +16,7 @@ class RouteQuery(BaseModel):
 
 
 system = """
-Твоя задача соотнести вопрос пользователя с одной из категорий:
+Задача соотнести вопрос пользователя с одной из категорий:
 1. appointment - Запись на приём к врачу \n
 2. info_free_date - Вопрос про свободное время у врача \n
 3. info_doctor - Список врачей \n
@@ -23,9 +25,10 @@ system = """
 """
 
 chat = GigaChat(
-    #    model="GigaChat-Pro",
-    #    credentials=creds,
-    #    scope="GIGACHAT_API_CORP",  # "GIGACHAT_API_PERS",
+    model= SetGigaChatVariables.GIGACHAT_MODEL,
+    credentials=SetGigaChatVariables.GIGACHAT_CREDENTIALS,
+    scope=SetGigaChatVariables.GIGACHAT_SCOPE,
+
     verify_ssl_certs=False,
 
     temperature=0.1
